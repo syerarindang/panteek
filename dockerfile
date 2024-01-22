@@ -7,7 +7,7 @@ WORKDIR /usr/share/nginx/html
 # Salin file HTML dan asset lainnya ke dalam image
 COPY . .
 
-# Port yang akan di-EXPOSE
+# Port yang akan di-EXPOSEs
 EXPOSE 80
 
 # Perintah yang akan dijalankan saat container dijalankan
