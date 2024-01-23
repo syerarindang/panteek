@@ -1,5 +1,10 @@
 pipeline {
     agent any
+        environment {
+        DOCKER_IMAGE = 'web'
+        CONTAINER_NAME = 'some-nginx5'
+        PORT_MAPPING = '8081:80'  // Adjust the port mapping as needed
+    }
     stages {
         stage('Checkout') {
             steps {
@@ -12,7 +17,7 @@ pipeline {
             steps {
                 script {
                     // Run Docker container based on the built images
-                    sh 'docker run --name web_server -d -p 8081:80 web'
+                    docker.image("${DOCKER_IMAGE}").run("-p ${PORT_MAPPING} --name ${CONTAINER_NAME}")
                 }
             }
         }
