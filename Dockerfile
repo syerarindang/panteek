@@ -4,7 +4,7 @@ FROM nginx:stable-perl
 # Remove the default Nginx welcome page
 RUN rm -rf /usr/share/nginx/html/*
 
-WORKDIR /usr/share/nginx/html
+# WORKDIR /usr/share/nginx/html
 
 # Copy the HTML file to the Nginx web server root
 COPY . /usr/share/nginx/html
