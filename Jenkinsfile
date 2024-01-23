@@ -21,6 +21,32 @@ pipeline {
                 }
             }
         }
+          stage('Run Docker Container2') {
+            steps {
+                script {
+                    dir('panteek'){
+                    docker.image("${DOCKER_IMAGE}").run("-p ${PORT_MAPPING} --name ${CONTAINER_NAME}")
+                    }
+                    // Run Docker container based on the built images
+                }
+            }
+        }
+          stage('Run Docker Container3') {
+            steps {
+                script {
+                  dir('panteek'){
+                    sh 'docker run --name web_server -d -p 8081:80 web'
+                  }
+                }
+            }
+        }
+          stage('Run Docker Container4') {
+            steps {
+                script {
+                    sh 'docker run --name web_server -d -p 8081:80 web'
+                }
+            }
+        }
     }
 
 
