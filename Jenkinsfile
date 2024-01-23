@@ -6,13 +6,13 @@ pipeline {
         PORT_MAPPING = '8081:80'  // Adjust the port mapping as needed
     }
     stages {
-        // stage('Checkout') {
-        //     steps {
-        //         deleteDir()
-        //         checkout([$class: 'GitSCM', branches: [[name: 'main']], userRemoteConfigs: [[url: 'https://github.com/syerarindang/panteek.git']]])
-        //                 // Tambahkan pernyataan log untuk menampilkan direktori saat ini
-        //     }
-        // }
+        stage('Checkout') {
+            steps {
+                deleteDir()
+                checkout([$class: 'GitSCM', branches: [[name: 'main']], userRemoteConfigs: [[url: 'https://github.com/syerarindang/panteek.git']]])
+                        // Tambahkan pernyataan log untuk menampilkan direktori saat ini
+            }
+        }
         stage('Run Docker Container') {
             steps {
                 script {
