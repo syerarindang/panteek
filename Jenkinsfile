@@ -12,7 +12,7 @@ pipeline {
             steps {
                 script {
                     // Run Docker container based on the built images
-                    sh 'docker run --name web -d -p 8081:80 web_server2'
+                    sh 'docker run --name web_server -d -p 8081:80 web'
                 }
             }
         }
