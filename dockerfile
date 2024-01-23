@@ -1,14 +1,16 @@
-# Stage pertama: Gunakan image nginx sebagai base image
-FROM nginx:alpine AS builder
+# Use the official Nginx image as the base image
+FROM nginx:stable-perl
 
-# Set working directory di dalam image nginx
+# Remove the default Nginx welcome page
+RUN rm -rf /usr/share/nginx/html/*
+
 WORKDIR /usr/share/nginx/html
 
-# Salin file HTML dan asset lainnya ke dalam image
-COPY . .
+# Copy the HTML file to the Nginx web server root
+COPY . /usr/share/nginx/html
 
-# Port yang akan di-EXPOSEs
+# Expose the default Nginx port (80)
 EXPOSE 80
 
-# Perintah yang akan dijalankan saat container dijalankan
+# Command to start Nginx when the container starts
 CMD ["nginx", "-g", "daemon off;"]
