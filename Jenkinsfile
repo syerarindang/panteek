@@ -1,54 +1,29 @@
 pipeline {
     agent any
-        environment {
+    environment {
         DOCKER_IMAGE = 'web'
-        CONTAINER_NAME = 'some-nginx5'
+        CONTAINER_NAME = 'some-nginx10'
         PORT_MAPPING = '8081:80'  // Adjust the port mapping as needed
     }
+
     stages {
         // stage('Checkout') {
         //     steps {
+        //         // Clean workspace before checkout
         //         deleteDir()
-        //         checkout([$class: 'GitSCM', branches: [[name: 'main']], userRemoteConfigs: [[url: 'https://github.com/syerarindang/panteek.git']]])
-        //                 // Tambahkan pernyataan log untuk menampilkan direktori saat ini
+        //         // Checkout the HTML source code from GitHub
+        //         git url: 'https://github.com/atoschova'
         //     }
         // }
         stage('Run Docker Container') {
             steps {
                 script {
-                    // Run Docker container based on the built images
+                    // Run Docker container based on the built image
                     docker.image("${DOCKER_IMAGE}").run("-p ${PORT_MAPPING} --name ${CONTAINER_NAME}")
-                }
-            }
-        }
-          stage('Run Docker Container2') {
-            steps {
-                script {
-                    dir('panteek'){
-                    docker.image("${DOCKER_IMAGE}").run("-p ${PORT_MAPPING} --name ${CONTAINER_NAME}")
-                    }
-                    // Run Docker container based on the built images
-                }
-            }
-        }
-          stage('Run Docker Container3') {
-            steps {
-                script {
-                  dir('panteek'){
-                    sh 'docker run --name web_server -d -p 8081:80 web'
-                  }
-                }
-            }
-        }
-          stage('Run Docker Container4') {
-            steps {
-                script {
-                    sh 'docker run --name web_server -d -p 8081:80 web'
                 }
             }
         }
     }
-
 
     post {
         always {
